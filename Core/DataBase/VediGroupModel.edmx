@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="VediGroupModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="VediGroupModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="City">
           <Key>
             <PropertyRef Name="Id" />
@@ -27,6 +27,13 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
           <Property Name="CityId" Type="int" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -74,6 +81,18 @@
           <Property Name="TouristId" Type="int" />
           <Property Name="TourId" Type="int" />
         </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="RoleId" Type="int" />
+        </EntityType>
         <EntityType Name="VisaAvailability">
           <Key>
             <PropertyRef Name="Id" />
@@ -153,14 +172,28 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="VediGroupModelStoreContainer">
           <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Hotel" EntityType="Self.Hotel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tour" EntityType="Self.Tour" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tourist" EntityType="Self.Tourist" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TouristTour" EntityType="Self.TouristTour" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VisaAvailability" EntityType="Self.VisaAvailability" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_City_Country" Association="Self.FK_City_Country">
             <End Role="Country" EntitySet="Country" />
@@ -186,12 +219,55 @@
             <End Role="Tourist" EntitySet="Tourist" />
             <End Role="TouristTour" EntitySet="TouristTour" />
           </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="VediGroupModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="VediGroupEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cities" EntityType="VediGroupModel.City" />
+          <EntitySet Name="Countries" EntityType="VediGroupModel.Country" />
+          <EntitySet Name="Hotels" EntityType="VediGroupModel.Hotel" />
+          <EntitySet Name="Roles" EntityType="VediGroupModel.Role" />
+          <EntitySet Name="sysdiagrams" EntityType="VediGroupModel.sysdiagram" />
+          <EntitySet Name="Tours" EntityType="VediGroupModel.Tour" />
+          <EntitySet Name="Tourists" EntityType="VediGroupModel.Tourist" />
+          <EntitySet Name="TouristTours" EntityType="VediGroupModel.TouristTour" />
+          <EntitySet Name="Users" EntityType="VediGroupModel.User" />
+          <EntitySet Name="VisaAvailabilities" EntityType="VediGroupModel.VisaAvailability" />
+          <AssociationSet Name="FK_City_Country" Association="VediGroupModel.FK_City_Country">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="City" EntitySet="Cities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Hotel_City" Association="VediGroupModel.FK_Hotel_City">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="Hotel" EntitySet="Hotels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tour_Hotel" Association="VediGroupModel.FK_Tour_Hotel">
+            <End Role="Hotel" EntitySet="Hotels" />
+            <End Role="Tour" EntitySet="Tours" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="VediGroupModel.FK_User_Role">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TouristTour_Tour" Association="VediGroupModel.FK_TouristTour_Tour">
+            <End Role="Tour" EntitySet="Tours" />
+            <End Role="TouristTour" EntitySet="TouristTours" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tourist_VisaAvailability" Association="VediGroupModel.FK_Tourist_VisaAvailability">
+            <End Role="VisaAvailability" EntitySet="VisaAvailabilities" />
+            <End Role="Tourist" EntitySet="Tourists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TouristTour_Tourist" Association="VediGroupModel.FK_TouristTour_Tourist">
+            <End Role="Tourist" EntitySet="Tourists" />
+            <End Role="TouristTour" EntitySet="TouristTours" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="City">
           <Key>
             <PropertyRef Name="Id" />
@@ -199,8 +275,8 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CountryId" Type="Int32" />
-          <NavigationProperty Name="Country" Relationship="Self.FK_City_Country" FromRole="City" ToRole="Country" />
-          <NavigationProperty Name="Hotels" Relationship="Self.FK_Hotel_City" FromRole="City" ToRole="Hotel" />
+          <NavigationProperty Name="Country" Relationship="VediGroupModel.FK_City_Country" FromRole="City" ToRole="Country" />
+          <NavigationProperty Name="Hotels" Relationship="VediGroupModel.FK_Hotel_City" FromRole="City" ToRole="Hotel" />
         </EntityType>
         <EntityType Name="Country">
           <Key>
@@ -208,7 +284,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Cities" Relationship="Self.FK_City_Country" FromRole="Country" ToRole="City" />
+          <NavigationProperty Name="Cities" Relationship="VediGroupModel.FK_City_Country" FromRole="Country" ToRole="City" />
         </EntityType>
         <EntityType Name="Hotel">
           <Key>
@@ -217,14 +293,22 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CityId" Type="Int32" />
-          <NavigationProperty Name="City" Relationship="Self.FK_Hotel_City" FromRole="Hotel" ToRole="City" />
-          <NavigationProperty Name="Tours" Relationship="Self.FK_Tour_Hotel" FromRole="Hotel" ToRole="Tour" />
+          <NavigationProperty Name="City" Relationship="VediGroupModel.FK_Hotel_City" FromRole="Hotel" ToRole="City" />
+          <NavigationProperty Name="Tours" Relationship="VediGroupModel.FK_Tour_Hotel" FromRole="Hotel" ToRole="Tour" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="VediGroupModel.FK_User_Role" FromRole="Role" ToRole="User" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
             <PropertyRef Name="diagram_id" />
           </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="principal_id" Type="Int32" Nullable="false" />
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
@@ -241,8 +325,8 @@
           <Property Name="ArrivalDate" Type="DateTime" Precision="0" />
           <Property Name="Price" Type="Decimal" Precision="16" Scale="2" />
           <Property Name="IsVisaNeeded" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Hotel" Relationship="Self.FK_Tour_Hotel" FromRole="Tour" ToRole="Hotel" />
-          <NavigationProperty Name="TouristTours" Relationship="Self.FK_TouristTour_Tour" FromRole="Tour" ToRole="TouristTour" />
+          <NavigationProperty Name="Hotel" Relationship="VediGroupModel.FK_Tour_Hotel" FromRole="Tour" ToRole="Hotel" />
+          <NavigationProperty Name="TouristTours" Relationship="VediGroupModel.FK_TouristTour_Tour" FromRole="Tour" ToRole="TouristTour" />
         </EntityType>
         <EntityType Name="Tourist">
           <Key>
@@ -259,8 +343,8 @@
           <Property Name="PhoneNumber" Type="String" MaxLength="11" FixedLength="true" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="VisaAvailabilityId" Type="Int32" />
-          <NavigationProperty Name="VisaAvailability" Relationship="Self.FK_Tourist_VisaAvailability" FromRole="Tourist" ToRole="VisaAvailability" />
-          <NavigationProperty Name="TouristTours" Relationship="Self.FK_TouristTour_Tourist" FromRole="Tourist" ToRole="TouristTour" />
+          <NavigationProperty Name="VisaAvailability" Relationship="VediGroupModel.FK_Tourist_VisaAvailability" FromRole="Tourist" ToRole="VisaAvailability" />
+          <NavigationProperty Name="TouristTours" Relationship="VediGroupModel.FK_TouristTour_Tourist" FromRole="Tourist" ToRole="TouristTour" />
         </EntityType>
         <EntityType Name="TouristTour">
           <Key>
@@ -269,8 +353,21 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TouristId" Type="Int32" />
           <Property Name="TourId" Type="Int32" />
-          <NavigationProperty Name="Tour" Relationship="Self.FK_TouristTour_Tour" FromRole="TouristTour" ToRole="Tour" />
-          <NavigationProperty Name="Tourist" Relationship="Self.FK_TouristTour_Tourist" FromRole="TouristTour" ToRole="Tourist" />
+          <NavigationProperty Name="Tour" Relationship="VediGroupModel.FK_TouristTour_Tour" FromRole="TouristTour" ToRole="Tour" />
+          <NavigationProperty Name="Tourist" Relationship="VediGroupModel.FK_TouristTour_Tourist" FromRole="TouristTour" ToRole="Tourist" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RoleId" Type="Int32" />
+          <NavigationProperty Name="Role" Relationship="VediGroupModel.FK_User_Role" FromRole="User" ToRole="Role" />
         </EntityType>
         <EntityType Name="VisaAvailability">
           <Key>
@@ -278,11 +375,11 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Tourists" Relationship="Self.FK_Tourist_VisaAvailability" FromRole="VisaAvailability" ToRole="Tourist" />
+          <NavigationProperty Name="Tourists" Relationship="VediGroupModel.FK_Tourist_VisaAvailability" FromRole="VisaAvailability" ToRole="Tourist" />
         </EntityType>
         <Association Name="FK_City_Country">
-          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
-          <End Role="City" Type="Self.City" Multiplicity="*" />
+          <End Type="VediGroupModel.Country" Role="Country" Multiplicity="0..1" />
+          <End Type="VediGroupModel.City" Role="City" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Country">
               <PropertyRef Name="Id" />
@@ -293,8 +390,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Hotel_City">
-          <End Role="City" Type="Self.City" Multiplicity="0..1" />
-          <End Role="Hotel" Type="Self.Hotel" Multiplicity="*" />
+          <End Type="VediGroupModel.City" Role="City" Multiplicity="0..1" />
+          <End Type="VediGroupModel.Hotel" Role="Hotel" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="City">
               <PropertyRef Name="Id" />
@@ -305,8 +402,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Tour_Hotel">
-          <End Role="Hotel" Type="Self.Hotel" Multiplicity="0..1" />
-          <End Role="Tour" Type="Self.Tour" Multiplicity="*" />
+          <End Type="VediGroupModel.Hotel" Role="Hotel" Multiplicity="0..1" />
+          <End Type="VediGroupModel.Tour" Role="Tour" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Hotel">
               <PropertyRef Name="Id" />
@@ -316,9 +413,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_User_Role">
+          <End Type="VediGroupModel.Role" Role="Role" Multiplicity="0..1" />
+          <End Type="VediGroupModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TouristTour_Tour">
-          <End Role="Tour" Type="Self.Tour" Multiplicity="0..1" />
-          <End Role="TouristTour" Type="Self.TouristTour" Multiplicity="*" />
+          <End Type="VediGroupModel.Tour" Role="Tour" Multiplicity="0..1" />
+          <End Type="VediGroupModel.TouristTour" Role="TouristTour" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Tour">
               <PropertyRef Name="Id" />
@@ -329,8 +438,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Tourist_VisaAvailability">
-          <End Role="VisaAvailability" Type="Self.VisaAvailability" Multiplicity="0..1" />
-          <End Role="Tourist" Type="Self.Tourist" Multiplicity="*" />
+          <End Type="VediGroupModel.VisaAvailability" Role="VisaAvailability" Multiplicity="0..1" />
+          <End Type="VediGroupModel.Tourist" Role="Tourist" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="VisaAvailability">
               <PropertyRef Name="Id" />
@@ -341,8 +450,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TouristTour_Tourist">
-          <End Role="Tourist" Type="Self.Tourist" Multiplicity="0..1" />
-          <End Role="TouristTour" Type="Self.TouristTour" Multiplicity="*" />
+          <End Type="VediGroupModel.Tourist" Role="Tourist" Multiplicity="0..1" />
+          <End Type="VediGroupModel.TouristTour" Role="TouristTour" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Tourist">
               <PropertyRef Name="Id" />
@@ -352,40 +461,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="VediGroupEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Cities" EntityType="Self.City" />
-          <EntitySet Name="Countries" EntityType="Self.Country" />
-          <EntitySet Name="Hotels" EntityType="Self.Hotel" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
-          <EntitySet Name="Tours" EntityType="Self.Tour" />
-          <EntitySet Name="Tourists" EntityType="Self.Tourist" />
-          <EntitySet Name="TouristTours" EntityType="Self.TouristTour" />
-          <EntitySet Name="VisaAvailabilities" EntityType="Self.VisaAvailability" />
-          <AssociationSet Name="FK_City_Country" Association="Self.FK_City_Country">
-            <End Role="Country" EntitySet="Countries" />
-            <End Role="City" EntitySet="Cities" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Hotel_City" Association="Self.FK_Hotel_City">
-            <End Role="City" EntitySet="Cities" />
-            <End Role="Hotel" EntitySet="Hotels" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tour_Hotel" Association="Self.FK_Tour_Hotel">
-            <End Role="Hotel" EntitySet="Hotels" />
-            <End Role="Tour" EntitySet="Tours" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TouristTour_Tour" Association="Self.FK_TouristTour_Tour">
-            <End Role="Tour" EntitySet="Tours" />
-            <End Role="TouristTour" EntitySet="TouristTours" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tourist_VisaAvailability" Association="Self.FK_Tourist_VisaAvailability">
-            <End Role="VisaAvailability" EntitySet="VisaAvailabilities" />
-            <End Role="Tourist" EntitySet="Tourists" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TouristTour_Tourist" Association="Self.FK_TouristTour_Tourist">
-            <End Role="Tourist" EntitySet="Tourists" />
-            <End Role="TouristTour" EntitySet="TouristTours" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -395,84 +470,105 @@
           <EntitySetMapping Name="Cities">
             <EntityTypeMapping TypeName="VediGroupModel.City">
               <MappingFragment StoreEntitySet="City">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Countries">
             <EntityTypeMapping TypeName="VediGroupModel.Country">
               <MappingFragment StoreEntitySet="Country">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Hotels">
             <EntityTypeMapping TypeName="VediGroupModel.Hotel">
               <MappingFragment StoreEntitySet="Hotel">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="VediGroupModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="VediGroupModel.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tours">
             <EntityTypeMapping TypeName="VediGroupModel.Tour">
               <MappingFragment StoreEntitySet="Tour">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="HotelId" ColumnName="HotelId" />
-                <ScalarProperty Name="DepartureDate" ColumnName="DepartureDate" />
-                <ScalarProperty Name="ArrivalDate" ColumnName="ArrivalDate" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="IsVisaNeeded" ColumnName="IsVisaNeeded" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ArrivalDate" ColumnName="ArrivalDate" />
+                <ScalarProperty Name="DepartureDate" ColumnName="DepartureDate" />
+                <ScalarProperty Name="HotelId" ColumnName="HotelId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tourists">
             <EntityTypeMapping TypeName="VediGroupModel.Tourist">
               <MappingFragment StoreEntitySet="Tourist">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
-                <ScalarProperty Name="PassportSeries" ColumnName="PassportSeries" />
-                <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
-                <ScalarProperty Name="RegistrationAddress" ColumnName="RegistrationAddress" />
-                <ScalarProperty Name="InternPassportNumber" ColumnName="InternPassportNumber" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="VisaAvailabilityId" ColumnName="VisaAvailabilityId" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="InternPassportNumber" ColumnName="InternPassportNumber" />
+                <ScalarProperty Name="RegistrationAddress" ColumnName="RegistrationAddress" />
+                <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
+                <ScalarProperty Name="PassportSeries" ColumnName="PassportSeries" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TouristTours">
             <EntityTypeMapping TypeName="VediGroupModel.TouristTour">
               <MappingFragment StoreEntitySet="TouristTour">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="TouristId" ColumnName="TouristId" />
                 <ScalarProperty Name="TourId" ColumnName="TourId" />
+                <ScalarProperty Name="TouristId" ColumnName="TouristId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="VediGroupModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="VisaAvailabilities">
             <EntityTypeMapping TypeName="VediGroupModel.VisaAvailability">
               <MappingFragment StoreEntitySet="VisaAvailability">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

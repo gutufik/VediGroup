@@ -1,0 +1,29 @@
+﻿@page "/tours"
+
+<h3>Туры</h3>
+
+<table class="table">
+    <tr>
+        <td>Название</td>
+        <td>Страна</td>
+        <td>Город</td>
+        <td>Виза</td>
+        <td>Стоимость</td>
+    </tr>
+
+@foreach (var tour in ToursList)
+{
+    <tr>
+        <td>@tour.Name</td>
+        <td>@tour.Hotel?.City.Country.Name</td>
+        <td>@tour.Hotel?.City.Name</td>
+        <td>@(tour.IsVisaNeeded? "Нужна": "Не нужна")</td>
+        <td>@tour.Price</td>
+    </tr>
+}
+</table>
+
+@code {
+    public List<Tour> ToursList = DataAccess.GetTours();
+
+}

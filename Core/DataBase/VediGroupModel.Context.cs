@@ -28,10 +28,12 @@ namespace Core.DataBase
         public virtual DbSet<City> Cities { get; set; }
         public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<Hotel> Hotels { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Tour> Tours { get; set; }
         public virtual DbSet<Tourist> Tourists { get; set; }
         public virtual DbSet<TouristTour> TouristTours { get; set; }
+        public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<VisaAvailability> VisaAvailabilities { get; set; }
     }
 }
