@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VediGroup", "VediGroup\VediGroup.csproj", "{79796A4D-3046-4259-8E10-BBDAFEE32523}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VediGroup", "VediGroup\VediGroup.csproj", "{79796A4D-3046-4259-8E10-BBDAFEE32523}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{CD62666A-5FA6-45BA-A3F9-B634EF7492EA}"
 EndProject
