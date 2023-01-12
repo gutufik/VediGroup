@@ -15,19 +15,19 @@ namespace VediGroup.Provider
         } 
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-            // var token = await _localStorageService.GetAsync<SecurityToken>(nameof(SecurityToken));
+            var token = await _localStorageService.GetAsync<Pages.Account.SecurityToken>(nameof(Pages.Account.SecurityToken));
             var identity = new ClaimsIdentity();
-            //if (token != null) 
-            //{
-            //    var claims = new List<Claim>
-            //    {
-            //        new Claim(ClaimTypes.Country, "Russia"),
-            //        new Claim(ClaimTypes.Role, "Administrator"),
-            //        new Claim(ClaimTypes.Role, "Manager"),
-            //    };
+            if (token != null)
+            {
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Country, "Russia"),
+                    new Claim(ClaimTypes.Role, "Administrator"),
+                    new Claim(ClaimTypes.Role, "Manager"),
+                };
 
-            //    identity = new ClaimsIdentity(claims, "Token");
-            //}
+                identity = new ClaimsIdentity(claims, "Token");
+            }
 
 
             var user = new ClaimsPrincipal(identity);
