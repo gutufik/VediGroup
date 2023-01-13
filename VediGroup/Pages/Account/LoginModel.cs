@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
 using VediGroup.Services;
+using Core;
+using Core.DataBase;
+
 
 namespace VediGroup.Pages.Account
 {
@@ -12,6 +15,7 @@ namespace VediGroup.Pages.Account
             ViewModel = new LoginViewModel();
         }
         public LoginViewModel ViewModel { get; set; }
+        public string ErrorMessage { get; set; }
         protected async Task LoginAsync()
         {
             var token = new SecurityToken 
@@ -20,8 +24,15 @@ namespace VediGroup.Pages.Account
                 Password = ViewModel.Password,
             };
 
-            await LocalStorageService.SetAsync(nameof(SecurityToken), token);
-            NavigationManager.NavigateTo("/", true);
+            if (DataAccess.GetUser(ViewModel.Username, ViewModel.Password) != null)
+            {
+                await LocalStorageService.SetAsync(nameof(SecurityToken), token);
+                NavigationManager.NavigateTo("/", true);
+            }
+            else
+            {
+                ErrorMessage = "Неверный логин или пароль";
+            }
         }
 
     }

@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using VediGroup.Services;
+using Core;
+using Core.DataBase;
 
 namespace VediGroup.Pages.Account
 {
@@ -17,6 +19,14 @@ namespace VediGroup.Pages.Account
 
         protected async Task RegisterAsync()
         {
+            var user = new User
+            {
+                Login = ViewModel.Username,
+                Password = ViewModel.Password,
+            };
+
+            DataAccess.SaveUser(user);
+
             var token = new SecurityToken
             {
                 Username = ViewModel.Username,

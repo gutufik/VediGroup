@@ -8,6 +8,11 @@
         <EditForm Model="@ViewModel" OnValidSubmit="LoginAsync">
             <DataAnnotationsValidator/>
             <ValidationSummary/>
+            <p>
+                <label>@ErrorMessage</label>
+            </p>
+
+
 
             <label for="username">Username</label>
             <InputText id="username" @bind-Value="@ViewModel.Username" class="form-control"/>
