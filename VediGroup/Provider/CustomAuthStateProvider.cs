@@ -1,5 +1,6 @@
 ﻿
 
+using Core;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Security.Principal;
@@ -20,12 +21,13 @@ namespace VediGroup.Provider
             var identity = new ClaimsIdentity();
             if (token != null)
             {
+                var dbUser = DataAccess.GetUser(token.Username, token.Password);
+
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Country, "Russia"),
                     new Claim(ClaimTypes.Name, token.Username),
-                    new Claim(ClaimTypes.Role, "Administrator"),
-                    new Claim(ClaimTypes.Role, "Manager"),
+                    new Claim(ClaimTypes.Role, dbUser?.Role?.Name ?? "None"),
                 };
 
                 identity = new ClaimsIdentity(claims, "Token");
