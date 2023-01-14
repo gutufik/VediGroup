@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using VediGroup.Data;
 using VediGroup.Provider;
 using VediGroup.Services;
+using Blazored.Modal;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,7 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
 builder.Services.AddScoped<ILocalStorageService, LocalStorageService>();
 builder.Services.AddAuthorizationCore();
+builder.Services.AddBlazoredModal();
 
 
 //builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
