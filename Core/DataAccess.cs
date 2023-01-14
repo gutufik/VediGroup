@@ -32,5 +32,6 @@ namespace Core
 
             VediGroupEntities.GetContext().SaveChanges();
         }
+        public static Tour GetTour(int id) => GetTours().FirstOrDefault(x => x.Id == id);
     }
 }

@@ -1,0 +1,32 @@
+﻿@page "/tours/{stringid}"
+@inject NavigationManager NavigationManager
+
+<h3>TourInfo</h3>
+
+@if (stringId == "new")
+{
+    <p>Новый тур</p>
+}
+else if (int.TryParse(stringId, out Id) && Tour != null)
+{
+    <p>@Tour.Name</p>
+}
+else
+{
+    <Redirect Path="/tours"/>
+}
+@code {
+    [Parameter]
+    public string? stringId { get; set; }
+
+    public int Id;
+
+    public Tour Tour { get; set; }
+
+    protected override void OnInitialized()
+    {
+        int.TryParse(stringId, out Id);
+        if (Id != 0)
+            Tour = DataAccess.GetTour(Id);
+    }
+}

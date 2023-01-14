@@ -1,0 +1,16 @@
+﻿@inject NavigationManager NavigationManager
+
+<h3>TourModal</h3>
+
+<button class="btn btn-info" @onclick=MoreInfoClick>Подробнее</button>
+
+@code {
+    [Parameter]
+    public Tour Tour { get; set; }
+
+    public void MoreInfoClick()
+    {
+        NavigationManager.NavigateTo("tours/1");
+    }
+
+}
