@@ -1,20 +1,75 @@
 ﻿@page "/tours/{stringid}"
 @inject NavigationManager NavigationManager
+@inherits TourModel
 
 <h3>TourInfo</h3>
 
-@if (stringId == "new")
-{
-    <p>Новый тур</p>
-}
-else if (int.TryParse(stringId, out Id) && Tour != null)
-{
-    <p>@Tour.Name</p>
-}
-else
-{
-    <Redirect Path="/tours"/>
-}
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        @if (stringId == "new")
+        {
+            <h1>Новый тур</h1>
+            <EditForm Model="@ViewModel" OnValidSubmit="SaveAsync">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+                <label for="name">Name</label>
+                <InputText id="name" @bind-Value="@ViewModel.Tour.Name" class="form-control" />
+
+                <label for="departureDate">DepartureDate</label>
+                <InputDate id="departureDate" @bind-Value="@ViewModel.Tour.DepartureDate" class="form-control" />
+
+                <label for="arrivalDate">ArrivalDate</label>
+                <InputDate id="arrivalDate" @bind-Value="@ViewModel.Tour.ArrivalDate" class="form-control" />
+
+                <label for="hotelId">HotelId</label>
+                <InputNumber id="hotelId" @bind-Value="@ViewModel.Tour.HotelId" class="form-control" />
+
+                <label for="price">Price</label>
+                <InputNumber id="price" @bind-Value="@ViewModel.Tour.Price" class="form-control" />
+
+                <label for="isVisaNeeded">IsVisaNeeded</label>
+                <InputCheckbox id="isVisaNeeded" @bind-Value="@ViewModel.Tour.IsVisaNeeded" class="form-control" />
+
+            <p class="my-4">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </p>
+        </EditForm>
+        }
+        else if (int.TryParse(stringId, out Id) && Tour != null)
+        {
+            <h1>@Tour.Name</h1>
+            <EditForm Model="@ViewModel" OnValidSubmit="SaveAsync">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+                <label for="name">Name</label>
+                <InputText id="name" @bind-Value="@ViewModel.Tour.Name" class="form-control" />
+
+                <label for="departureDate">DepartureDate</label>
+                <InputDate id="departureDate" @bind-Value="@ViewModel.Tour.DepartureDate" class="form-control" />
+
+                <label for="arrivalDate">ArrivalDate</label>
+                <InputDate id="arrivalDate" @bind-Value="@ViewModel.Tour.ArrivalDate" class="form-control" />
+
+                <label for="hotelId">HotelId</label>
+                <InputNumber id="hotelId" @bind-Value="@ViewModel.Tour.HotelId" class="form-control" />
+
+                <label for="price">Price</label>
+                <InputNumber id="price" @bind-Value="@ViewModel.Tour.Price" class="form-control" />
+
+                <label for="isVisaNeeded">IsVisaNeeded</label>
+                <InputCheckbox id="isVisaNeeded" @bind-Value="@ViewModel.Tour.IsVisaNeeded" class="form-control" />
+
+            <p class="my-4">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </p>
+        </EditForm>
+        }
+        else
+        {
+            <Redirect Path="/tours"/>
+        }
+    </div>
+</div>
 @code {
     [Parameter]
     public string? stringId { get; set; }
