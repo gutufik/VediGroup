@@ -63,9 +63,6 @@
     <Compile Include="DataBase\Role.cs">
       <DependentUpon>VediGroupModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataBase\sysdiagram.cs">
-      <DependentUpon>VediGroupModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataBase\Tour.cs">
       <DependentUpon>VediGroupModel.tt</DependentUpon>
     </Compile>

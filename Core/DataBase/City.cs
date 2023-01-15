@@ -22,7 +22,7 @@ namespace Core.DataBase
     
         public int Id { get; set; }
         public string Name { get; set; }
-        public Nullable<int> CountryId { get; set; }
+        public int CountryId { get; set; }
     
         public virtual Country Country { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -23,8 +23,8 @@ namespace Core.DataBase
         public int Id { get; set; }
         public string Name { get; set; }
         public Nullable<int> HotelId { get; set; }
-        public Nullable<System.DateTime> DepartureDate { get; set; }
-        public Nullable<System.DateTime> ArrivalDate { get; set; }
+        public System.DateTime DepartureDate { get; set; }
+        public System.DateTime ArrivalDate { get; set; }
         public Nullable<decimal> Price { get; set; }
         public bool IsVisaNeeded { get; set; }
     

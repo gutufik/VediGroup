@@ -28,16 +28,16 @@
                 <InputNumber id="price" @bind-Value="@ViewModel.Tour.Price" class="form-control" />
 
                 <label for="isVisaNeeded">IsVisaNeeded</label>
-                <InputCheckbox id="isVisaNeeded" @bind-Value="@ViewModel.Tour.IsVisaNeeded" class="form-control" />
+                <InputCheckbox id="isVisaNeeded" @bind-Value="@ViewModel.Tour.IsVisaNeeded" />
 
             <p class="my-4">
                 <button type="submit" class="btn btn-primary">Save</button>
             </p>
         </EditForm>
         }
-        else if (int.TryParse(stringId, out Id) && Tour != null)
+        else if (int.TryParse(stringId, out Id) && ViewModel.Tour.Name != null)
         {
-            <h1>@Tour.Name</h1>
+            <h1>@ViewModel.Tour.Name</h1>
             <EditForm Model="@ViewModel" OnValidSubmit="SaveAsync">
             <DataAnnotationsValidator />
             <ValidationSummary />
@@ -51,13 +51,23 @@
                 <InputDate id="arrivalDate" @bind-Value="@ViewModel.Tour.ArrivalDate" class="form-control" />
 
                 <label for="hotelId">HotelId</label>
-                <InputNumber id="hotelId" @bind-Value="@ViewModel.Tour.HotelId" class="form-control" />
+                <InputSelect  id="hotelId" @bind-Value="@ViewModel.Tour.HotelId" class="form-control" >
+                    @if (ViewModel.Tour.HotelId is null)
+                    {
+                        <option value="">Нет</option>
+                    }
+
+                    @foreach (var hotel in Hotels)
+                    {
+                        <option value="@hotel.Id">@hotel.Name</option>
+                    }
+                </InputSelect>
 
                 <label for="price">Price</label>
                 <InputNumber id="price" @bind-Value="@ViewModel.Tour.Price" class="form-control" />
 
                 <label for="isVisaNeeded">IsVisaNeeded</label>
-                <InputCheckbox id="isVisaNeeded" @bind-Value="@ViewModel.Tour.IsVisaNeeded" class="form-control" />
+                <InputCheckbox id="isVisaNeeded" @bind-Value="@ViewModel.Tour.IsVisaNeeded" />
 
             <p class="my-4">
                 <button type="submit" class="btn btn-primary">Save</button>
@@ -76,12 +86,14 @@
 
     public int Id;
 
-    public Tour Tour { get; set; }
+    public List<Hotel> Hotels { get; set; } = new List<Hotel>();
 
     protected override void OnInitialized()
     {
+        Hotels = DataAccess.GetHotels();
+
         int.TryParse(stringId, out Id);
         if (Id != 0)
-            Tour = DataAccess.GetTour(Id);
+            ViewModel.Tour = DataAccess.GetTour(Id);
     }
 }

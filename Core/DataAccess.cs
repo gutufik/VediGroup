@@ -33,5 +33,13 @@ namespace Core
             VediGroupEntities.GetContext().SaveChanges();
         }
         public static Tour GetTour(int id) => GetTours().FirstOrDefault(x => x.Id == id);
+
+        public static void SaveTour(Tour tour)
+        {
+            if (tour.Id == 0)
+                VediGroupEntities.GetContext().Tours.Add(tour);
+
+            VediGroupEntities.GetContext().SaveChanges();
+        }
     }
 }

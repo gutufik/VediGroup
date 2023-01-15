@@ -1,16 +1,54 @@
 ﻿@inject NavigationManager NavigationManager
 
-<h3>TourModal</h3>
+<div style="width:250px">
 
-<button class="btn btn-info" @onclick=MoreInfoClick>Подробнее</button>
+    <div class="row">
+        <div class="col">
+            <div class="row">
+                <label class="col" for="name">Name</label>
+                <span class="col">@Tour.Name</span>
+            </div>
+            <div class="row">
+                <label class="col" for="hotel">Hotel</label>
+                <span class="col">@Tour.Hotel?.Name</span>
+            </div>
+            <div class="row">
+                <label class="col" for="country">Country</label>
+                <span class="col">@Tour.Hotel?.City?.Country?.Name</span>
+            </div>
+            <div class="row">
+                <label class="col" for="city">City</label>
+                <span class="col">@Tour.Hotel?.City?.Name</span>
+            </div>
+            <div class="row">
+                <label class="col" for="departureDate">DepartureDate</label>
+                <span class="col">@(Tour.DepartureDate.ToShortDateString())</span>
+            </div>
+            <div class="row">
+                <label class="col" for="arrivalDate">ArrivalDate</label>
+                <span class="col">@(Tour.ArrivalDate.ToShortDateString())</span>
+            </div>
+            <div class="row">
+                <label class="col" for="price">Price</label>
+                <span class="col">@Tour.Price</span>
+            </div>
+            <div class="row">
+                <label class="col" for="isVisaNeeded">IsVisaNeeded</label>
+                <span class="col">@(Tour.IsVisaNeeded? "Нужна": "Не нужна")</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button class="btn btn-info" @onclick=EditClick>Редактировать</button>
 
 @code {
     [Parameter]
     public Tour Tour { get; set; }
 
-    public void MoreInfoClick()
+    public void EditClick()
     {
-        NavigationManager.NavigateTo("tours/1");
+        NavigationManager.NavigateTo($"tours/{Tour.Id}");
     }
 
 }

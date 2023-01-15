@@ -15,8 +15,8 @@ namespace Core.DataBase
     public partial class TouristTour
     {
         public int Id { get; set; }
-        public Nullable<int> TouristId { get; set; }
-        public Nullable<int> TourId { get; set; }
+        public int TouristId { get; set; }
+        public int TourId { get; set; }
     
         public virtual Tour Tour { get; set; }
         public virtual Tourist Tourist { get; set; }
