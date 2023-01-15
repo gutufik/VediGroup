@@ -24,7 +24,6 @@
                     <th>Город</th>
                     <th>Виза</th>
                     <th>Стоимость</th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody class="font-weight-bold">
@@ -36,7 +35,6 @@
                         <td>@tour.Hotel?.City.Name</td>
                         <td>@(tour.IsVisaNeeded? "Нужна": "Не нужна")</td>
                         <td>@tour.Price</td>
-                        <td><button class="btn btn-danger">Удалить</button></td>
                     </tr>
                 }
             </tbody>
@@ -55,9 +53,13 @@
 
     public void OnRowClick(Tour tour)
     {
+        var options = new ModalOptions()
+        {
+            Size = ModalSize.Large
+        };
         var parameters = new ModalParameters()
         .Add(nameof(TourModal.Tour), tour);
-        ModalService.Show<TourModal>("Тур", parameters);
+        ModalService.Show<TourModal>("Информация о туре", parameters, options);
     }
 
 }

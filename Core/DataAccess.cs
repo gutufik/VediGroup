@@ -41,5 +41,11 @@ namespace Core
 
             VediGroupEntities.GetContext().SaveChanges();
         }
+
+        public static void DeleteTour(Tour tour)
+        {
+            VediGroupEntities.GetContext().Tours.Remove(tour);
+            VediGroupEntities.GetContext().SaveChanges();
+        }
     }
 }

@@ -22,7 +22,17 @@
                 <InputDate id="arrivalDate" @bind-Value="@ViewModel.Tour.ArrivalDate" class="form-control" />
 
                 <label for="hotelId">HotelId</label>
-                <InputNumber id="hotelId" @bind-Value="@ViewModel.Tour.HotelId" class="form-control" />
+                <InputSelect id="hotelId" @bind-Value="@ViewModel.Tour.HotelId" class="form-control">
+                    @if (ViewModel.Tour.HotelId is null)
+                    {
+                        <option value="">Нет</option>
+                    }
+
+                    @foreach (var hotel in Hotels)
+                    {
+                        <option value="@hotel.Id">@hotel.Name</option>
+                    }
+                </InputSelect>
 
                 <label for="price">Price</label>
                 <InputNumber id="price" @bind-Value="@ViewModel.Tour.Price" class="form-control" />
