@@ -13,17 +13,17 @@
             <DataAnnotationsValidator />
             <ValidationSummary />
                 <label for="name">Name</label>
-                <InputText id="name" @bind-Value="@ViewModel.Tour.Name" class="form-control" />
+                <InputText id="name" @bind-Value="@ViewModel.Name" class="form-control" />
 
                 <label for="departureDate">DepartureDate</label>
-                <InputDate id="departureDate" @bind-Value="@ViewModel.Tour.DepartureDate" class="form-control" />
+                <InputDate id="departureDate" @bind-Value="@ViewModel.DepartureDate" class="form-control" />
 
                 <label for="arrivalDate">ArrivalDate</label>
-                <InputDate id="arrivalDate" @bind-Value="@ViewModel.Tour.ArrivalDate" class="form-control" />
+                <InputDate id="arrivalDate" @bind-Value="@ViewModel.ArrivalDate" class="form-control" />
 
                 <label for="hotelId">HotelId</label>
-                <InputSelect id="hotelId" @bind-Value="@ViewModel.Tour.HotelId" class="form-control">
-                    @if (ViewModel.Tour.HotelId is null)
+                <InputSelect id="hotelId" @bind-Value="@ViewModel.HotelId" class="form-control">
+                    @if (ViewModel.HotelId is null)
                     {
                         <option value="">Нет</option>
                     }
@@ -35,34 +35,34 @@
                 </InputSelect>
 
                 <label for="price">Price</label>
-                <InputNumber id="price" @bind-Value="@ViewModel.Tour.Price" class="form-control" />
+                <InputNumber id="price" @bind-Value="@ViewModel.Price" class="form-control" />
 
                 <label for="isVisaNeeded">IsVisaNeeded</label>
-                <InputCheckbox id="isVisaNeeded" @bind-Value="@ViewModel.Tour.IsVisaNeeded" />
+                <InputCheckbox id="isVisaNeeded" @bind-Value="@ViewModel.IsVisaNeeded" />
 
             <p class="my-4">
                 <button type="submit" class="btn btn-primary">Save</button>
             </p>
         </EditForm>
         }
-        else if (int.TryParse(stringId, out Id) && ViewModel.Tour.Name != null)
+        else if (int.TryParse(stringId, out Id) && ViewModel.Name != null)
         {
-            <h1>@ViewModel.Tour.Name</h1>
+            <h1>@ViewModel.Name</h1>
             <EditForm Model="@ViewModel" OnValidSubmit="SaveAsync">
             <DataAnnotationsValidator />
             <ValidationSummary />
                 <label for="name">Name</label>
-                <InputText id="name" @bind-Value="@ViewModel.Tour.Name" class="form-control" />
+                <InputText id="name" @bind-Value="@ViewModel.Name" class="form-control" />
 
                 <label for="departureDate">DepartureDate</label>
-                <InputDate id="departureDate" @bind-Value="@ViewModel.Tour.DepartureDate" class="form-control" />
+                <InputDate id="departureDate" @bind-Value="@ViewModel.DepartureDate" class="form-control" />
 
                 <label for="arrivalDate">ArrivalDate</label>
-                <InputDate id="arrivalDate" @bind-Value="@ViewModel.Tour.ArrivalDate" class="form-control" />
+                <InputDate id="arrivalDate" @bind-Value="@ViewModel.ArrivalDate" class="form-control" />
 
                 <label for="hotelId">HotelId</label>
-                <InputSelect  id="hotelId" @bind-Value="@ViewModel.Tour.HotelId" class="form-control" >
-                    @if (ViewModel.Tour.HotelId is null)
+                <InputSelect  id="hotelId" @bind-Value="@ViewModel.HotelId" class="form-control" >
+                    @if (ViewModel.HotelId is null)
                     {
                         <option value="">Нет</option>
                     }
@@ -74,10 +74,10 @@
                 </InputSelect>
 
                 <label for="price">Price</label>
-                <InputNumber id="price" @bind-Value="@ViewModel.Tour.Price" class="form-control" />
+                <InputNumber id="price" @bind-Value="@ViewModel.Price" class="form-control" />
 
                 <label for="isVisaNeeded">IsVisaNeeded</label>
-                <InputCheckbox id="isVisaNeeded" @bind-Value="@ViewModel.Tour.IsVisaNeeded" />
+                <InputCheckbox id="isVisaNeeded" @bind-Value="@ViewModel.IsVisaNeeded" />
 
             <p class="my-4">
                 <button type="submit" class="btn btn-primary">Save</button>

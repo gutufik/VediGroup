@@ -18,6 +18,5 @@ namespace VediGroup.Pages.ToursPages
             DataAccess.SaveTour(ViewModel.Tour);
             NavigationManager.NavigateTo("/tours");
         }
-
     }
 }

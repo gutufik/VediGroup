@@ -47,5 +47,15 @@ namespace Core
             VediGroupEntities.GetContext().Tours.Remove(tour);
             VediGroupEntities.GetContext().SaveChanges();
         }
+
+        public static Tourist GetTourist(int id) => GetTourists().FirstOrDefault(x => x.Id == id);
+
+        public static void SaveTourist(Tourist tourist)
+        {
+            if (tourist.Id == 0)
+                VediGroupEntities.GetContext().Tourists.Add(tourist);
+
+            VediGroupEntities.GetContext().SaveChanges();
+        }
     }
 }

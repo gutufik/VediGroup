@@ -11,7 +11,7 @@
                 <h3 class="font-weight-bold">Туры</h3>
             </div>
             <div class="col">
-                <button class="btn btn-primary float-end" @onclick=@(NewBriefClick)>
+                <button class="btn btn-primary float-end" @onclick=@(NewTourClick)>
                     Добавить тур
                 </button>
             </div>
@@ -46,7 +46,7 @@
 @code {
     public List<Tour> ToursList = DataAccess.GetTours();
 
-    public void NewBriefClick()
+    public void NewTourClick()
     {
         NavigationManager.NavigateTo("/tours/new");
     }
