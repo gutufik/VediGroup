@@ -28,7 +28,12 @@ namespace Core
         public static void SaveUser(User user)
         {
             if (user.Id == 0)
+            {
+                user.FirstName = "test";
+                user.LastName = "test";
                 VediGroupEntities.GetContext().Users.Add(user);
+
+            }
 
             VediGroupEntities.GetContext().SaveChanges();
         }
