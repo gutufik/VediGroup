@@ -23,6 +23,10 @@ namespace VediGroup.Pages.Account
             {
                 Login = ViewModel.Username,
                 Password = ViewModel.Password,
+                Email = ViewModel.Email,
+                FirstName = ViewModel.FirstName,
+                LastName = ViewModel.LastName,
+                Role = DataAccess.GetRole("Manager")
             };
 
             DataAccess.SaveUser(user);

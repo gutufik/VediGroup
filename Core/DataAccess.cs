@@ -20,6 +20,8 @@ namespace Core
         public static List<User> GetUsers() => VediGroupEntities.GetContext().Users.ToList();
         public static List<Role> GetRoles() => VediGroupEntities.GetContext().Roles.ToList();
 
+        public static Role GetRole(string name) => GetRoles().FirstOrDefault(x => x.Name == name);
+
         public static User GetUser(string login, string password)
         {
             return GetUsers().FirstOrDefault(x => x.Login == login && x.Password == password);
@@ -29,8 +31,8 @@ namespace Core
         {
             if (user.Id == 0)
             {
-                user.FirstName = "test";
-                user.LastName = "test";
+                //user.FirstName = "test";
+                //user.LastName = "test";
                 VediGroupEntities.GetContext().Users.Add(user);
 
             }
