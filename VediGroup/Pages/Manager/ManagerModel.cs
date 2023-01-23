@@ -10,15 +10,15 @@ namespace VediGroup.Pages.Manager
 
         public ManagerModel()
         {
-            User = new User();
+            ViewModel = new ManagerViewModel();
         }
 
-        public User User { get; set; }
+        public ManagerViewModel ViewModel { get; set; }
 
         public async Task SaveAsync()
         {
-            //DataAccess.SaveTour(ViewModel.Tour);
-            //NavigationManager.NavigateTo("/tours");
+            DataAccess.SaveUser(ViewModel.Manager);
+            NavigationManager.NavigateTo("/managers");
         }
     }
 }

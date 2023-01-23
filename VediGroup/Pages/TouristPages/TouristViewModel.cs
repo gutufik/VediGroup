@@ -42,9 +42,6 @@ namespace VediGroup.Pages.TouristPages
         [Required(ErrorMessage = "Поле обязательно для заполнения")]
         public int? VisaAvailabilityId { get => Tourist.VisaAvailabilityId; set { Tourist.VisaAvailabilityId = value; } }
 
-
-
-
         public Tourist Tourist { get; set; }
     }
 }

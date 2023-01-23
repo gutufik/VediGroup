@@ -18,6 +18,7 @@ namespace Core
         public static List<Country> GetCountries() => VediGroupEntities.GetContext().Countries.ToList();
         public static List<City> GetCities() => VediGroupEntities.GetContext().Cities.ToList();
         public static List<User> GetUsers() => VediGroupEntities.GetContext().Users.ToList();
+        public static List<User> GetManagers() => GetUsers().FindAll(x => x.Role == GetRole("Manager"));
         public static List<Role> GetRoles() => VediGroupEntities.GetContext().Roles.ToList();
 
         public static Role GetRole(string name) => GetRoles().FirstOrDefault(x => x.Name == name);
@@ -30,12 +31,7 @@ namespace Core
         public static void SaveUser(User user)
         {
             if (user.Id == 0)
-            {
-                //user.FirstName = "test";
-                //user.LastName = "test";
                 VediGroupEntities.GetContext().Users.Add(user);
-
-            }
 
             VediGroupEntities.GetContext().SaveChanges();
         }
@@ -64,5 +60,7 @@ namespace Core
 
             VediGroupEntities.GetContext().SaveChanges();
         }
+
+        public static User GetManager(int id) => GetManagers().FirstOrDefault(x => x.Id == id);
     }
 }
