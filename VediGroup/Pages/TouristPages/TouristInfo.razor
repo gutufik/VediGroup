@@ -11,34 +11,34 @@
                 <ValidationSummary />
                 <h1>Новый турист</h1>
 
-                <label for="firstName">FirstName</label>
-                <InputText id="firstName" @bind-Value="@ViewModel.FirstName" class="form-control" />
-
-                <label for="lastName">LastName</label>
+                <label for="lastName">Фамилия</label>
                 <InputText id="lastName" @bind-Value="@ViewModel.LastName" class="form-control" />
 
-                <label for="patronymic">Patronymic</label>
+                <label for="firstName">Имя</label>
+                <InputText id="firstName" @bind-Value="@ViewModel.FirstName" class="form-control" />
+
+                <label for="patronymic">Отчество</label>
                 <InputText id="patronymic" @bind-Value="@ViewModel.Patronymic" class="form-control" />
 
-                <label for="passportSeries">PassportSeries</label>
+                <label for="passportSeries">Серия паспорта</label>
                 <InputText id="passportSeries" @bind-Value="@ViewModel.PassportSeries" class="form-control" />
 
-                <label for="passportNumber">PassportNumber</label>
+                <label for="passportNumber">Номер паспорта</label>
                 <InputText id="passportNumber" @bind-Value="@ViewModel.PassportNumber" class="form-control" />
 
-                <label for="registrationAddress">RegistrationAddress</label>
+                <label for="registrationAddress">Адрес регистрации</label>
                 <InputText id="registrationAddress" @bind-Value="@ViewModel.RegistrationAddress" class="form-control" />
 
-                <label for="internPassportNumber">InternPassportNumber</label>
+                <label for="internPassportNumber">Номер загранпаспорта</label>
                 <InputText id="internPassportNumber" @bind-Value="@ViewModel.InternPassportNumber" class="form-control" />
 
-                <label for="phoneNumber">PhoneNumber</label>
+                <label for="phoneNumber">Номер телефона</label>
                 <InputText id="phoneNumber" @bind-Value="@ViewModel.PhoneNumber" class="form-control" />
 
                 <label for="email">Email</label>
                 <InputText id="email" @bind-Value="@ViewModel.Email" class="form-control" />
 
-                <label for="visaAvailabilityId">VisaAvailabilityId</label>
+                <label for="visaAvailabilityId">Наличие визы</label>
                 <InputSelect id="visaAvailabilityId" @bind-Value="@ViewModel.VisaAvailabilityId" class="form-control">
                     @if (ViewModel.VisaAvailabilityId is null)
                     {
@@ -51,7 +51,7 @@
                     }
                 </InputSelect>
                 <p class="my-4">
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
                 </p>
             </EditForm>
         }
@@ -62,34 +62,34 @@
                 <ValidationSummary />
                 <h1>Редактирование туриста</h1>
 
-                <label for="firstName">FirstName</label>
-                <InputText id="firstName" @bind-Value="@ViewModel.FirstName" class="form-control" />
-
-                <label for="lastName">LastName</label>
+                <label for="lastName">Фамилия</label>
                 <InputText id="lastName" @bind-Value="@ViewModel.LastName" class="form-control" />
 
-                <label for="patronymic">Patronymic</label>
+                <label for="firstName">Имя</label>
+                <InputText id="firstName" @bind-Value="@ViewModel.FirstName" class="form-control" />
+
+                <label for="patronymic">Отчество</label>
                 <InputText id="patronymic" @bind-Value="@ViewModel.Patronymic" class="form-control" />
 
-                <label for="passportSeries">PassportSeries</label>
+                <label for="passportSeries">Серия паспорта</label>
                 <InputText id="passportSeries" @bind-Value="@ViewModel.PassportSeries" class="form-control" />
 
-                <label for="passportNumber">PassportNumber</label>
+                <label for="passportNumber">Номер паспорта</label>
                 <InputText id="passportNumber" @bind-Value="@ViewModel.PassportNumber" class="form-control" />
 
-                <label for="registrationAddress">RegistrationAddress</label>
+                <label for="registrationAddress">Адрес регистрации</label>
                 <InputText id="registrationAddress" @bind-Value="@ViewModel.RegistrationAddress" class="form-control" />
 
-                <label for="internPassportNumber">InternPassportNumber</label>
+                <label for="internPassportNumber">Номер загранпаспорта</label>
                 <InputText id="internPassportNumber" @bind-Value="@ViewModel.InternPassportNumber" class="form-control" />
 
-                <label for="phoneNumber">PhoneNumber</label>
+                <label for="phoneNumber">Номер телефона</label>
                 <InputText id="phoneNumber" @bind-Value="@ViewModel.PhoneNumber" class="form-control" />
 
                 <label for="email">Email</label>
                 <InputText id="email" @bind-Value="@ViewModel.Email" class="form-control" />
 
-                <label for="visaAvailabilityId">VisaAvailabilityId</label>
+                <label for="visaAvailabilityId">Наличие визы</label>
                 <InputSelect id="visaAvailabilityId" @bind-Value="@ViewModel.VisaAvailabilityId" class="form-control">
                     @if (ViewModel.VisaAvailabilityId is null)
                     {
@@ -102,7 +102,7 @@
                     }
                 </InputSelect>
                 <p class="my-4">
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
                 </p>
             </EditForm>
         }
