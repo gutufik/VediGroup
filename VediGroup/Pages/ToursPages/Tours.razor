@@ -24,6 +24,7 @@
                     <th>Город</th>
                     <th>Виза</th>
                     <th>Стоимость</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody class="font-weight-bold">
@@ -35,6 +36,9 @@
                         <td>@tour.Hotel?.City.Name</td>
                         <td>@(tour.IsVisaNeeded? "Нужна": "Не нужна")</td>
                         <td>@tour.Price</td>
+                        <td><button class="btn btn-info" @onclick=@(()=>BookTour(tour)) 
+                            @onfocus=@(() => DisableRowClick())
+                            @onblur=@(() => EnableRowClick())>Бронировать</button></td>
                     </tr>
                 }
             </tbody>
@@ -46,6 +50,8 @@
 @code {
     public List<Tour> ToursList = DataAccess.GetTours();
 
+    bool canClickOnRow = true;
+
     public void NewTourClick()
     {
         NavigationManager.NavigateTo("/tours/new");
@@ -53,13 +59,30 @@
 
     public void OnRowClick(Tour tour)
     {
-        var options = new ModalOptions()
+        if (canClickOnRow)
         {
-            Size = ModalSize.Large
-        };
+            var options = new ModalOptions()
+            {
+                Size = ModalSize.Large
+            };
+            var parameters = new ModalParameters()
+            .Add(nameof(TourModal.Tour), tour);
+            ModalService.Show<TourModal>("Информация о туре", parameters, options);
+        }
+    }
+    public void BookTour(Tour tour)
+    {
         var parameters = new ModalParameters()
-        .Add(nameof(TourModal.Tour), tour);
-        ModalService.Show<TourModal>("Информация о туре", parameters, options);
+            .Add(nameof(ToursPages.BookTour.Tour), tour);
+        ModalService.Show<BookTour>("Бронь тура", parameters);
+    }
+    public void DisableRowClick()
+    {
+        canClickOnRow = false;
+    }
+    public void EnableRowClick()
+    {
+        canClickOnRow = true;
     }
 
 }

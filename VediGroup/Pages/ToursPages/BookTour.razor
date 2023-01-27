@@ -1,0 +1,57 @@
+﻿@attribute [Authorize]
+@inject IModalService ModalService
+@inject NavigationManager NavigationManager
+
+
+<div class="row">
+    @Tour.Name
+</div>
+<div class="row">
+    @Tour.DepartureDate.ToShortDateString()
+</div>
+<div class="row">
+    @Tour.ArrivalDate.ToShortDateString()
+</div>
+<EditForm Model=@SelectedTourist OnInvalidSubmit="BookThisTour">
+    <div class="row">
+        <InputSelect @bind-Value=@SelectedTourist.Id>
+            @foreach (var tourist in Tourists)
+            {
+                <option value=@tourist.Id>@tourist.ToString()</option> 
+            }
+        </InputSelect>
+    </div>
+    <div class="row my-1">
+        <button class="btn btn-primary" type="submit" @onclick=BookThisTour>Забронировать</button>
+    </div>
+</EditForm>
+
+<div class="row col my-3">
+    <div class="row">Уже забронировали</div>
+    @foreach (var tt in Tour.TouristTours)
+    {
+        <div class="row">@($"{tt.Tourist}")</div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public Tour Tour { get; set; }
+
+    public List<Tourist> Tourists;
+
+    public Tourist SelectedTourist { get; set; }
+    protected override void OnInitialized()
+    {
+        Tourists = DataAccess.GetTourists();
+        SelectedTourist = Tourists.FirstOrDefault();
+    }
+
+    public void BookThisTour()
+    {
+        var tt = new TouristTour { Tour = Tour, TouristId = SelectedTourist.Id };
+        Tour.TouristTours.Add(tt);
+        DataAccess.SaveTour(Tour);
+    }
+
+}

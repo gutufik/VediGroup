@@ -10,7 +10,7 @@ namespace Core.DataBase
     {
         public override string ToString()
         {
-            return $"{LastName} {FirstName[0]}." + Patronymic != null? $" {Patronymic[0]}.": "";
+            return  Patronymic != null? $"{LastName} {FirstName[0]}. {Patronymic[0]}.": $"{LastName} {FirstName[0]}.";
         }
     }
 }
