@@ -3,6 +3,10 @@
         <Found Context="routeData">
             <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
             <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+            <LayoutView Layout="@typeof(LoginLayout)">
+                <h1>Page not found</h1>
+                <p>Sorry, there's nothing at this address.</p>
+            </LayoutView>
         </Found>
         <NotFound>
             <Redirect Path="/"/>

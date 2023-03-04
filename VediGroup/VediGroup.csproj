@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <Resource Include="wwwroot\assets\background.png" />
+    <Resource Include="wwwroot\assets\login-bg.jpeg" />
   </ItemGroup>
 
 </Project>
