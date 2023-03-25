@@ -45,19 +45,19 @@ main {
     }
 }
 
-@media (min-width: 641px) {
+/*@media (min-width: 641px) {
     .page {
         flex-direction: row;
-    }
+    }*/
 
-    .sidebar {
+/*    .sidebar {
         width: 250px;
         height: 100vh;
         position: sticky;
         top: 0;
-    }
+    }*/
 
-    .top-row {
+    /*.top-row {
         position: sticky;
         top: 0;
         z-index: 1;
@@ -68,4 +68,3 @@ main {
         padding-right: 1.5rem !important;
     }
 }
-*/

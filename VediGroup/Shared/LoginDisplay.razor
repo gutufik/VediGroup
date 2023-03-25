@@ -1,12 +1,16 @@
 ﻿<AuthorizeView>
     <Authorized>
-        <a href="/me">Привет, @context.User.Identity?.Name!</a>
-        <form action="/logout">
-            <button type="submit" class="nav-link btn btn-link">Выйти</button>
-        </form>
+        <div class="login-bar">
+            <a href="/me">Привет, @context.User.Identity?.Name!</a>
+            <form action="/logout">
+                <button type="submit" class="nav-link btn btn-link">Выйти</button>
+            </form>
+       </div>
     </Authorized>
     <NotAuthorized>
-        <a href="register">Регистрация</a>
-        <a href="login">Войти</a>
+        <div class="login-bar px-1">
+            <a href="register">Регистрация</a>
+            <a href="login">Войти</a>
+        </div>
     </NotAuthorized>
 </AuthorizeView>

@@ -35,6 +35,30 @@
     cursor: pointer;
 }
 
+.nav-flex-column {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: nowrap;
+    justify-content: center;
+    margin: 0px 113px;
+    flex-direction: row!important;
+}
+
+.px-3 {
+    padding-right: 2rem !important;
+    padding-left: 2rem !important;
+}
+
+.login-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+    .login-bar a {
+        padding-right: .25rem !important;
+        padding-left: .25rem !important;
+    }
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
