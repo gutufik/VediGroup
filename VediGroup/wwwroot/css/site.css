@@ -130,3 +130,32 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+.my-form {
+    padding: 40px 30px;
+    background: #fefefe;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-bottom: 20px;
+}
+
+my-form-h4 {
+    margin-bottom: 20px;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+my-form-span {
+    color: black;
+    font-weight: 700;
+}
+
+my-form-p {
+    line-height: 155%;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #000;
+    opacity: 0.65;
+    font-weight: 400;
+    max-width: 200px;
+    margin-bottom: 40px;
+}
