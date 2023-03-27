@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity.Validation;
 using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
@@ -55,10 +56,31 @@ namespace Core
 
         public static void SaveTourist(Tourist tourist)
         {
-            if (tourist.Id == 0)
-                VediGroupEntities.GetContext().Tourists.Add(tourist);
+   
+                if (tourist.Id == 0) 
+                { 
+                    tourist.VisaAvailabilityId = 1;
+                    VediGroupEntities.GetContext().Tourists.Add(tourist);
+                }
+            try
+            {
 
-            VediGroupEntities.GetContext().SaveChanges();
+                VediGroupEntities.GetContext().SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
         }
 
         public static User GetManager(int id) => GetManagers().FirstOrDefault(x => x.Id == id);
