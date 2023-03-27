@@ -46,6 +46,22 @@ namespace Core
             VediGroupEntities.GetContext().SaveChanges();
         }
 
+        public static void SaveCountry(Country country)
+        {
+            if (country.Id == 0)
+                VediGroupEntities.GetContext().Countries.Add(country);
+
+            VediGroupEntities.GetContext().SaveChanges();
+        }
+
+        public static void SaveCity(City city)
+        {
+            if (city.Id == 0)
+                VediGroupEntities.GetContext().Cities.Add(city);
+
+            VediGroupEntities.GetContext().SaveChanges();
+        }
+
         public static void DeleteTour(Tour tour)
         {
             VediGroupEntities.GetContext().Tours.Remove(tour);
@@ -84,5 +100,7 @@ namespace Core
         }
 
         public static User GetManager(int id) => GetManagers().FirstOrDefault(x => x.Id == id);
+        public static Country GetCountry(int id) => GetCountries().FirstOrDefault(x => x.Id == id);
+        public static City GetCity(int id) => GetCities().FirstOrDefault(x => x.Id == id);
     }
 }
