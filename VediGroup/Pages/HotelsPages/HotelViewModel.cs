@@ -5,11 +5,9 @@ namespace VediGroup.Pages.HotelsPages
 {
     public class HotelViewModel
     {
-        private string name;
 
         public HotelViewModel()
         {
-
             Hotel = new Hotel();
         }
         public Hotel Hotel { get; set; }

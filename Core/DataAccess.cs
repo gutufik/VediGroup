@@ -99,6 +99,19 @@ namespace Core
             }
         }
 
+        public static void SaveHotel(Hotel hotel)
+        {
+            if(hotel.Id == 0)
+            {
+                if (hotel.Id == 0)
+                    VediGroupEntities.GetContext().Hotels.Add(hotel);
+
+                VediGroupEntities.GetContext().SaveChanges();
+            }
+        }
+
+        public static Hotel GetHotel(int id) => GetHotels().FirstOrDefault(x => x.Id == id);
+
         public static User GetManager(int id) => GetManagers().FirstOrDefault(x => x.Id == id);
         public static Country GetCountry(int id) => GetCountries().FirstOrDefault(x => x.Id == id);
         public static City GetCity(int id) => GetCities().FirstOrDefault(x => x.Id == id);

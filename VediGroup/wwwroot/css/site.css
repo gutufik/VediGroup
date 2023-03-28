@@ -53,7 +53,7 @@
 .nav-flex-column {
     display: flex;
     align-items: baseline;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     justify-content: center;
     margin: 0px 113px;
     flex-direction: row!important;
@@ -176,5 +176,10 @@ a, .btn-link {
 }
 
 .my-form button{
+
+}
+
+.logo{
+    width: 130px;
 
 }
