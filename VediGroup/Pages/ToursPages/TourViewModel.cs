@@ -5,7 +5,7 @@ namespace VediGroup.Pages.ToursPages
 {
     public class TourViewModel
     {
-        public TourViewModel() 
+        public TourViewModel()
         {
             Tour = new Tour();
         }
@@ -14,7 +14,12 @@ namespace VediGroup.Pages.ToursPages
         [Required]
         public string Name { get => Tour.Name; set { Tour.Name = value; } }
 
+        [Required]
         public int? HotelId { get => Tour.HotelId; set { Tour.HotelId = value; } }
+        [Required]
+        public int? CityId { get => Tour.CityId; set { Tour.CityId = value; } }
+        [Required]
+        public int? CountryId { get => Tour.CountryId; set { Tour.CountryId = value; } }
         
         [Required]
         public DateTime DepartureDate { get => Tour.DepartureDate; set { Tour.DepartureDate = value; } }

@@ -18,6 +18,7 @@ namespace Core.DataBase
         public City()
         {
             this.Hotels = new HashSet<Hotel>();
+            this.Tours = new HashSet<Tour>();
         }
     
         public int Id { get; set; }
@@ -27,5 +28,7 @@ namespace Core.DataBase
         public virtual Country Country { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Hotel> Hotels { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tour> Tours { get; set; }
     }
 }

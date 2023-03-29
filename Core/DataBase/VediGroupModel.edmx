@@ -56,6 +56,8 @@
           <Property Name="ArrivalDate" Type="date" Nullable="false" />
           <Property Name="Price" Type="decimal" Precision="16" Scale="2" />
           <Property Name="IsVisaNeeded" Type="bit" Nullable="false" />
+          <Property Name="CountryId" Type="int" />
+          <Property Name="CityId" Type="int" />
         </EntityType>
         <EntityType Name="Tourist">
           <Key>
@@ -121,6 +123,30 @@
             </Principal>
             <Dependent Role="Hotel">
               <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tour_City">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="Tour" Type="Self.Tour" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tour">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tour_Country">
+          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="Tour" Type="Self.Tour" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tour">
+              <PropertyRef Name="CountryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -203,6 +229,14 @@
             <End Role="City" EntitySet="City" />
             <End Role="Hotel" EntitySet="Hotel" />
           </AssociationSet>
+          <AssociationSet Name="FK_Tour_City" Association="Self.FK_Tour_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="Tour" EntitySet="Tour" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tour_Country" Association="Self.FK_Tour_Country">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="Tour" EntitySet="Tour" />
+          </AssociationSet>
           <AssociationSet Name="FK_Tour_Hotel" Association="Self.FK_Tour_Hotel">
             <End Role="Hotel" EntitySet="Hotel" />
             <End Role="Tour" EntitySet="Tour" />
@@ -267,6 +301,14 @@
             <End Role="TouristTour" EntitySet="TouristTours" />
           </AssociationSet>
           <EntitySet Name="sysdiagrams" EntityType="VediGroupModel.sysdiagram" />
+          <AssociationSet Name="FK_Tour_City" Association="VediGroupModel.FK_Tour_City">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="Tour" EntitySet="Tours" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tour_Country" Association="VediGroupModel.FK_Tour_Country">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="Tour" EntitySet="Tours" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="City">
           <Key>
@@ -277,6 +319,7 @@
           <Property Name="CountryId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Country" Relationship="VediGroupModel.FK_City_Country" FromRole="City" ToRole="Country" />
           <NavigationProperty Name="Hotels" Relationship="VediGroupModel.FK_Hotel_City" FromRole="City" ToRole="Hotel" />
+          <NavigationProperty Name="Tours" Relationship="VediGroupModel.FK_Tour_City" FromRole="City" ToRole="Tour" />
         </EntityType>
         <EntityType Name="Country">
           <Key>
@@ -285,6 +328,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Cities" Relationship="VediGroupModel.FK_City_Country" FromRole="Country" ToRole="City" />
+          <NavigationProperty Name="Tours" Relationship="VediGroupModel.FK_Tour_Country" FromRole="Country" ToRole="Tour" />
         </EntityType>
         <EntityType Name="Hotel">
           <Key>
@@ -317,6 +361,10 @@
           <Property Name="IsVisaNeeded" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Hotel" Relationship="VediGroupModel.FK_Tour_Hotel" FromRole="Tour" ToRole="Hotel" />
           <NavigationProperty Name="TouristTours" Relationship="VediGroupModel.FK_TouristTour_Tour" FromRole="Tour" ToRole="TouristTour" />
+          <Property Name="CountryId" Type="Int32" />
+          <Property Name="CityId" Type="Int32" />
+          <NavigationProperty Name="City" Relationship="VediGroupModel.FK_Tour_City" FromRole="Tour" ToRole="City" />
+          <NavigationProperty Name="Country" Relationship="VediGroupModel.FK_Tour_Country" FromRole="Tour" ToRole="Country" />
         </EntityType>
         <EntityType Name="Tourist">
           <Key>
@@ -461,6 +509,30 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
+        <Association Name="FK_Tour_City">
+          <End Type="VediGroupModel.City" Role="City" Multiplicity="0..1" />
+          <End Type="VediGroupModel.Tour" Role="Tour" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tour">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tour_Country">
+          <End Type="VediGroupModel.Country" Role="Country" Multiplicity="0..1" />
+          <End Type="VediGroupModel.Tour" Role="Tour" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tour">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -504,6 +576,8 @@
           <EntitySetMapping Name="Tours">
             <EntityTypeMapping TypeName="VediGroupModel.Tour">
               <MappingFragment StoreEntitySet="Tour">
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
                 <ScalarProperty Name="IsVisaNeeded" ColumnName="IsVisaNeeded" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="ArrivalDate" ColumnName="ArrivalDate" />

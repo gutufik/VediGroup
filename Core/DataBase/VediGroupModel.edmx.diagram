@@ -22,6 +22,8 @@
         <AssociationConnector Association="VediGroupModel.FK_Tourist_VisaAvailability" />
         <AssociationConnector Association="VediGroupModel.FK_TouristTour_Tourist" />
         <EntityTypeShape EntityType="VediGroupModel.sysdiagram" Width="1.5" PointX="0.75" PointY="4.75" />
+        <AssociationConnector Association="VediGroupModel.FK_Tour_City" />
+        <AssociationConnector Association="VediGroupModel.FK_Tour_Country" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

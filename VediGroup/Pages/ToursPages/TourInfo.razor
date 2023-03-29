@@ -20,6 +20,35 @@
                 <label for="arrivalDate">Дата прибытия</label>
                 <InputDate id="arrivalDate" @bind-Value="@ViewModel.ArrivalDate" class="form-control" />
 
+                <label for="countryId">Страна</label>
+                <InputSelect id="countryId" @bind-Value="@ViewModel.CountryId" class="form-control" @onfocusout="OnCountrySelected">
+                    @if (ViewModel.CountryId is null)
+                    {
+                        <option value="">Нет</option>
+                    }
+
+                    @foreach (var country in Countries)
+                    {
+                        <option value="@country.Id">@country.Name</option>
+                    }
+                </InputSelect>
+
+                <label for="cityId">Город</label>
+                <InputSelect id="cityId" @bind-Value="@ViewModel.CityId" class="form-control" @onfocusout="OnCitySelected">
+                    @if (ViewModel.CityId is null)
+                    {
+                        <option value="">Нет</option>
+                    }
+
+                    @foreach (var city in Cities)
+                    {
+                        <option value="@city.Id">@city.Name</option>
+                    }
+                </InputSelect>
+
+
+
+
                 <label for="hotelId">Отель</label>
                 <InputSelect id="hotelId" @bind-Value="@ViewModel.HotelId" class="form-control">
                     @if (ViewModel.HotelId is null)
@@ -59,6 +88,32 @@
                 <label for="arrivalDate">Дата прибытия</label>
                 <InputDate id="arrivalDate" @bind-Value="@ViewModel.ArrivalDate" class="form-control" />
 
+                <InputSelect id="countryId" @bind-Value="@ViewModel.CountryId" class="form-control" @onfocusout="OnCountrySelected">
+                    @if (ViewModel.CountryId is null)
+                    {
+                        <option value="">Нет</option>
+                    }
+
+                    @foreach (var country in Countries)
+                    {
+                        <option value="@country.Id">@country.Name</option>
+                    }
+                </InputSelect>
+
+                <label for="cityId">Город</label>
+                <InputSelect id="cityId" @bind-Value="@ViewModel.CityId" class="form-control" @onfocusout="OnCitySelected">
+                    @if (ViewModel.CityId is null)
+                    {
+                        <option value="">Нет</option>
+                    }
+
+                    @foreach (var city in Cities)
+                    {
+                        <option value="@city.Id">@city.Name</option>
+                    }
+                </InputSelect>
+
+
                 <label for="hotelId">Отель</label>
                 <InputSelect  id="hotelId" @bind-Value="@ViewModel.HotelId" class="form-control" >
                     @if (ViewModel.HotelId is null)
@@ -95,14 +150,46 @@
 
     public int Id;
 
+    public List<Country> Countries { get; set; } = new List<Country>();
+
     public List<Hotel> Hotels { get; set; } = new List<Hotel>();
+
+    public List<City> Cities { get; set; } = new List<City>();
 
     protected override void OnInitialized()
     {
         Hotels = DataAccess.GetHotels();
-
+        Countries = DataAccess.GetCountries();
+        Cities = DataAccess.GetCities();
         int.TryParse(stringId, out Id);
         if (Id != 0)
+        {
             ViewModel.Tour = DataAccess.GetTour(Id);
+            if (ViewModel.CountryId != null)
+            {
+                Cities = DataAccess.GetCities().Where(x => x.CountryId == ViewModel.CountryId).ToList();
+            }
+            if (ViewModel.CityId != null)
+            {
+                Hotels = DataAccess.GetHotels().Where(x => x.CityId == ViewModel.CityId).ToList();
+            }
+            
+        }
+    }
+
+    private void OnCountrySelected()
+    {
+        if (ViewModel.CountryId != null)
+        {
+            Cities = DataAccess.GetCities().Where(x => x.CountryId == ViewModel.CountryId).ToList();
+        }
+    }
+
+    private void OnCitySelected()
+    {
+        if(ViewModel.CityId != null)
+        {
+            Hotels = DataAccess.GetHotels().Where(x => x.CityId == ViewModel.CityId).ToList();
+        }
     }
 }

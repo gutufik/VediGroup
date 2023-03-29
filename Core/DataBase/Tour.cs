@@ -27,9 +27,13 @@ namespace Core.DataBase
         public System.DateTime ArrivalDate { get; set; }
         public Nullable<decimal> Price { get; set; }
         public bool IsVisaNeeded { get; set; }
+        public Nullable<int> CountryId { get; set; }
+        public Nullable<int> CityId { get; set; }
     
         public virtual Hotel Hotel { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TouristTour> TouristTours { get; set; }
+        public virtual City City { get; set; }
+        public virtual Country Country { get; set; }
     }
 }
