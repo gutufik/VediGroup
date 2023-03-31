@@ -19,11 +19,16 @@
             </div>
         </div>
     </div>
-    <div class="">
+    <div class="container">
         @foreach (var tour in ToursList)
         {
-            <div>
-
+            <div class="tours-card" @onclick="@(() => OnRowClick(tour))">
+                <img src="assets/placeholder.jpg" width="300" style="align-content:center">
+                <div class="h3">@tour.Name</div>
+                <div>@tour.Country.Name</div>
+                <div>@tour.City.Name</div>
+                <div>@tour.DepartureDate</div>
+                <div>@tour.Price</div>
             </div>
         } 
     </div>
