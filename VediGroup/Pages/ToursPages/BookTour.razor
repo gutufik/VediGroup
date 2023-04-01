@@ -28,10 +28,12 @@
 
 <div class="row col my-3">
     <div class="row">Уже забронировали</div>
-    @foreach (var tt in Tour.TouristTours)
-    {
-        <div class="row">@($"{tt.Tourist}")</div>
-    }
+    <ol>
+        @foreach (var tt in Tour.TouristTours)
+        {
+            <li>@($"{tt.Tourist}")</li>
+        }
+    </ol>
 </div>
 
 @code {
@@ -49,9 +51,16 @@
 
     public void BookThisTour()
     {
-        var tt = new TouristTour { Tour = Tour, TouristId = SelectedTourist.Id };
-        Tour.TouristTours.Add(tt);
-        DataAccess.SaveTour(Tour);
+        if (Tour.TouristTours.Where(x => x.TouristId == SelectedTourist.Id).Count() == 0)
+        {
+            var tt = new TouristTour { Tour = Tour, TouristId = SelectedTourist.Id };
+            Tour.TouristTours.Add(tt);
+            DataAccess.SaveTour(Tour);           
+        }
+        else
+        {
+            
+        }
     }
 
 }

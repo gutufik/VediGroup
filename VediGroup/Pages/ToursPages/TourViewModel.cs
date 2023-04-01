@@ -1,5 +1,6 @@
 ﻿using Core.DataBase;
 using System.ComponentModel.DataAnnotations;
+using System.Drawing;
 
 namespace VediGroup.Pages.ToursPages
 {
@@ -32,5 +33,7 @@ namespace VediGroup.Pages.ToursPages
 
         [Required]
         public bool IsVisaNeeded { get => Tour.IsVisaNeeded; set { Tour.IsVisaNeeded = value; } }
+
+        public IFormFile Image { get; set; }
     }
 }

@@ -29,6 +29,7 @@ namespace Core.DataBase
         public bool IsVisaNeeded { get; set; }
         public Nullable<int> CountryId { get; set; }
         public Nullable<int> CityId { get; set; }
+        public byte[] Image { get; set; }
     
         public virtual Hotel Hotel { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

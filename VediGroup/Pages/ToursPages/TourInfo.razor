@@ -15,10 +15,11 @@
                 <InputText id="name" @bind-Value="@ViewModel.Name" class="form-control" />
 
                 <label for="departureDate">Дата отправления</label>
-                <InputDate id="departureDate" @bind-Value="@ViewModel.DepartureDate" class="form-control" />
+                <InputDate id="departureDate" @bind-Value="@ViewModel.DepartureDate" class="form-control" @onclick="GetTodayTime">
+                </InputDate>
 
                 <label for="arrivalDate">Дата прибытия</label>
-                <InputDate id="arrivalDate" @bind-Value="@ViewModel.ArrivalDate" class="form-control" />
+                <InputDate id="arrivalDate" @bind-Value="@ViewModel.ArrivalDate" class="form-control" @onclick="GetArrivalTime" />
 
                 <label for="countryId">Страна</label>
                 <InputSelect id="countryId" @bind-Value="@ViewModel.CountryId" class="form-control" @onfocusout="OnCountrySelected">
@@ -87,7 +88,7 @@
 
                 <label for="arrivalDate">Дата прибытия</label>
                 <InputDate id="arrivalDate" @bind-Value="@ViewModel.ArrivalDate" class="form-control" />
-
+                <label for="countryId">Страна</label>
                 <InputSelect id="countryId" @bind-Value="@ViewModel.CountryId" class="form-control" @onfocusout="OnCountrySelected">
                     @if (ViewModel.CountryId is null)
                     {
@@ -133,6 +134,9 @@
                 <label for="isVisaNeeded">Виза нужна</label>
                 <InputCheckbox id="isVisaNeeded" @bind-Value="@ViewModel.IsVisaNeeded" />
 
+                <label for="Image">Изображение</label>
+                <InputFile id="image" @bind-Value="@ViewModel.Image" class="form-control"/>
+
             <p class="my-4">
                 <button type="submit" class="btn btn-primary">Сохранить</button>
             </p>
@@ -173,7 +177,7 @@
             {
                 Hotels = DataAccess.GetHotels().Where(x => x.CityId == ViewModel.CityId).ToList();
             }
-            
+
         }
     }
 
@@ -191,5 +195,15 @@
         {
             Hotels = DataAccess.GetHotels().Where(x => x.CityId == ViewModel.CityId).ToList();
         }
+    }
+
+    private void GetTodayTime()
+    {
+        ViewModel.DepartureDate = DateTime.Now;
+    }
+
+    private void GetArrivalTime()
+    {
+        ViewModel.ArrivalDate = DateTime.Now;
     }
 }

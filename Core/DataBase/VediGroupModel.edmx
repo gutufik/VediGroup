@@ -58,6 +58,7 @@
           <Property Name="IsVisaNeeded" Type="bit" Nullable="false" />
           <Property Name="CountryId" Type="int" />
           <Property Name="CityId" Type="int" />
+          <Property Name="Image" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Tourist">
           <Key>
@@ -365,6 +366,7 @@
           <Property Name="CityId" Type="Int32" />
           <NavigationProperty Name="City" Relationship="VediGroupModel.FK_Tour_City" FromRole="Tour" ToRole="City" />
           <NavigationProperty Name="Country" Relationship="VediGroupModel.FK_Tour_Country" FromRole="Tour" ToRole="Country" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="Tourist">
           <Key>
@@ -576,6 +578,7 @@
           <EntitySetMapping Name="Tours">
             <EntityTypeMapping TypeName="VediGroupModel.Tour">
               <MappingFragment StoreEntitySet="Tour">
+                <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="CityId" ColumnName="CityId" />
                 <ScalarProperty Name="CountryId" ColumnName="CountryId" />
                 <ScalarProperty Name="IsVisaNeeded" ColumnName="IsVisaNeeded" />
