@@ -23,7 +23,13 @@
         {
             <div class="tours-card" @onclick="@(() => OnRowClick(tour))">
                 <div class="tour-image-container">
-                    <img src="data:image/png;base64, @Convert.ToBase64String(tour.Image)">  
+                    @if(tour.Image == null){
+                        <img src="assets/placeholder.jpg">
+                    }
+                    else
+                    {
+                        <img src="data:image/png;base64, @Convert.ToBase64String(tour.Image)">
+                    }
                 </div>
                 <div class="tour-name">@tour.Name</div>
                 <div class="tour-city-country">

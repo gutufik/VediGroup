@@ -16,7 +16,8 @@ namespace VediGroup.Pages.ToursPages
 
         public async Task SaveAsync()
         {
-            if(ViewModel.Image != null)
+
+            if (ViewModel.Image != null)
             {
                 byte[] imageData = null;
                 // считываем переданный файл в массив байтов

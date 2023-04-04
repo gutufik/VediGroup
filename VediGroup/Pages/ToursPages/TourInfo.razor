@@ -77,7 +77,7 @@
         else if (int.TryParse(stringId, out Id) && ViewModel.Name != null)
         {
             <h1>@ViewModel.Name</h1>
-            <EditForm Model="@ViewModel" OnValidSubmit="SaveAsync">
+            <EditForm Model="@ViewModel" OnValidSubmit="SaveAsync" enctype="multipart/form-data">
             <DataAnnotationsValidator />
             <ValidationSummary />
                 <label for="name">Название тура</label>
@@ -135,7 +135,7 @@
                 <InputCheckbox id="isVisaNeeded" @bind-Value="@ViewModel.IsVisaNeeded" />
 
                 <label for="Image">Изображение</label>
-                <InputFile id="image" @bind-Value="@ViewModel.Image" class="form-control"/>
+                <InputFile OnChange="@LoadFiles" id="image"/>
 
             <p class="my-4">
                 <button type="submit" class="btn btn-primary">Сохранить</button>
@@ -176,6 +176,7 @@
             if (ViewModel.CityId != null)
             {
                 Hotels = DataAccess.GetHotels().Where(x => x.CityId == ViewModel.CityId).ToList();
+
             }
 
         }
@@ -205,5 +206,16 @@
     private void GetArrivalTime()
     {
         ViewModel.ArrivalDate = DateTime.Now;
+    }
+
+    public async Task LoadFiles(InputFileChangeEventArgs e)
+    {
+        var file = e.File;
+
+        var stream = file.OpenReadStream();
+
+        ViewModel.Tour.Image = new byte[stream.Length];
+
+        await stream.ReadAsync(ViewModel.Tour.Image);
     }
 }
