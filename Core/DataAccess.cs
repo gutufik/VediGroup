@@ -1,12 +1,8 @@
-﻿using System;
+﻿using Core.DataBase;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.Validation;
-using System.Diagnostics.Eventing.Reader;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Core.DataBase;
 
 namespace Core
 {
@@ -72,12 +68,12 @@ namespace Core
 
         public static void SaveTourist(Tourist tourist)
         {
-   
-                if (tourist.Id == 0) 
-                { 
-                    tourist.VisaAvailabilityId = 1;
-                    VediGroupEntities.GetContext().Tourists.Add(tourist);
-                }
+
+            if (tourist.Id == 0)
+            {
+                tourist.VisaAvailabilityId = 1;
+                VediGroupEntities.GetContext().Tourists.Add(tourist);
+            }
             try
             {
 
@@ -101,7 +97,7 @@ namespace Core
 
         public static void SaveHotel(Hotel hotel)
         {
-            if(hotel.Id == 0)
+            if (hotel.Id == 0)
             {
                 if (hotel.Id == 0)
                     VediGroupEntities.GetContext().Hotels.Add(hotel);

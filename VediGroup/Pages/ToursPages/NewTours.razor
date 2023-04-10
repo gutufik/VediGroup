@@ -38,6 +38,9 @@
                 </div>
                 <div class="tour-departure">@GetDepartureDate(tour)</div>
                 <div class="tour-price-container">
+                    <button class="btn btn-primary float-end" @onclick="@(() => BookTour(tour))">
+                        Забронировать   
+                    </button>
                     <div class="tour-price">@GetNormalPrice(tour)</div>
                 </div>
 
@@ -67,9 +70,11 @@
             .Add(nameof(TourModal.Tour), tour);
             ModalService.Show<TourModal>("Информация о туре", parameters, options);
         }
+        EnableRowClick();
     }
     public void BookTour(Tour tour)
     {
+        DisableRowClick();
         var parameters = new ModalParameters()
             .Add(nameof(ToursPages.BookTour.Tour), tour);
         ModalService.Show<BookTour>("Бронь тура", parameters);
